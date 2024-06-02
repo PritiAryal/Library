@@ -1,5 +1,6 @@
 package com.example.Library.Controller;
 
+import com.example.Library.Domain.Author;
 import com.example.Library.Domain.Transaction;
 import com.example.Library.Repository.TransactionRepository;
 import com.example.Library.Service.TransactionService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //@RestController
 @RequiredArgsConstructor
@@ -42,6 +44,17 @@ public class TransactionController {
     public ResponseEntity<Transaction> saveStaff(@RequestBody Transaction staff) {
         Transaction savedTransaction = transactionService.saveTransaction(staff);
         return new ResponseEntity<>(savedTransaction, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Transaction> updateTransaction(@PathVariable Integer id, @RequestBody Transaction transactionDetails) {
+        Optional<Transaction> transaction = transactionService.findById(id);
+        if (transaction.isPresent()) {
+            transactionDetails.setTransactionID(id);
+            return ResponseEntity.ok(transactionService.saveTransaction(transactionDetails));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

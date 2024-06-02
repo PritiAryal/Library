@@ -61,6 +61,7 @@
 package com.example.Library.Controller;
 
 import com.example.Library.Domain.Author;
+import com.example.Library.Domain.Member;
 import com.example.Library.Repository.AuthorRepository;
 import com.example.Library.Service.AuthorService;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +72,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //@RestController
 @Controller
@@ -102,6 +104,17 @@ public class AuthorController {
     public ResponseEntity<Author> saveAuthor(@RequestBody Author author) {
         Author savedAuthor = authorService.saveAuthor(author);
         return new ResponseEntity<>(savedAuthor, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Author> updateAuthor(@PathVariable Integer id, @RequestBody Author authorDetails) {
+        Optional<Author> author = authorService.findById(id);
+        if (author.isPresent()) {
+            authorDetails.setAuthorID(id);
+            return ResponseEntity.ok(authorService.saveAuthor(authorDetails));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

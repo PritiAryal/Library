@@ -1,5 +1,6 @@
 package com.example.Library.Controller;
 
+import com.example.Library.Domain.Author;
 import com.example.Library.Domain.Category;
 import com.example.Library.Repository.CategoryRepository;
 import com.example.Library.Service.CategoryService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //@RestController
 @RequiredArgsConstructor
@@ -41,6 +43,17 @@ public class CategoryController {
     public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
         Category savedCategory = categoryService.saveCategory(category);
         return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> updateCategory(@PathVariable Integer id, @RequestBody Category categoryDetails) {
+        Optional<Category> category = categoryService.findById(id);
+        if (category.isPresent()) {
+            categoryDetails.setCategoryID(id);
+            return ResponseEntity.ok(categoryService.saveCategory(categoryDetails));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

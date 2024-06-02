@@ -1,5 +1,6 @@
 package com.example.Library.Service;
 
+import com.example.Library.Domain.Member;
 import com.example.Library.Domain.Transaction;
 import com.example.Library.Repository.TransactionRepository;
 import jakarta.transaction.Transactional;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -25,6 +27,11 @@ public class TransactionService { //implements TransactionService0 {
     @Transactional
     public Transaction getTransactionById(int id) {
         return transactionRepository.findById(id);//.orElse(null);
+    }
+
+    @Transactional
+    public Optional<Transaction> findById(Integer id) {
+        return transactionRepository.findById(id);
     }
 
     //@Override

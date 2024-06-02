@@ -259,10 +259,10 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
-//    @Transactional
-//    public Optional<Book> findById(Integer id) {
-//        return bookRepository.findById(id);
-//    }
+    @Transactional
+    public Optional<Book> findById(Integer id) {
+        return bookRepository.findById(id);
+    }
 
 
     @Transactional

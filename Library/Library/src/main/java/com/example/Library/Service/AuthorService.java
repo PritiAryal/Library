@@ -131,11 +131,13 @@
 package com.example.Library.Service;
 
 import com.example.Library.Domain.Author;
+import com.example.Library.Domain.Member;
 import com.example.Library.Repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -157,6 +159,11 @@ public class AuthorService { //implements AuthorService {
     //@Override
     public Author getAuthorById(int id) {
         return authorRepository.findById(id);//.orElse(null);
+    }
+
+    @Transactional
+    public Optional<Author> findById(Integer id) {
+        return authorRepository.findById(id);
     }
 
     @Transactional

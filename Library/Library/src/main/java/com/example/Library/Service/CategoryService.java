@@ -1,12 +1,14 @@
 package com.example.Library.Service;
 
 import com.example.Library.Domain.Category;
+import com.example.Library.Domain.Member;
 import com.example.Library.Repository.CategoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -24,6 +26,11 @@ public class CategoryService {//implements CategoryService0 {
     //@Override
     @Transactional
     public Category getCategoryById(int id) {
+        return categoryRepository.findById(id);
+    }
+
+    @Transactional
+    public Optional<Category> findById(Integer id) {
         return categoryRepository.findById(id);
     }
 
