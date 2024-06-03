@@ -10,7 +10,9 @@ import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 //import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,6 +39,10 @@ public class Book {
     @JoinColumn(name = "authorID", referencedColumnName = "authorID", nullable=false)
     //@NotNull
     private Author author;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Operation> operations = new HashSet<>();
 
 //    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
 //    private Set<Loan> loans;
