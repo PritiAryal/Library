@@ -28,5 +28,7 @@ public class Operation {
     private Staff staff;
 
     private Date performedDate;
+
+    @Column(columnDefinition = "VARCHAR(255) CHECK (operationType IN ('Create', 'Delete', 'Update'))")
     private String operationType;
 }

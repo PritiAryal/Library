@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @CrossOrigin
 @Controller
-@RequestMapping("/api/operations")
+@RequestMapping("/api/operation")
 public class OperationController {
 
     //@Autowired

@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @CrossOrigin
 @Controller
-@RequestMapping("/api/members")
+@RequestMapping("/api/member")
 public class MemberController {
 
     //@Autowired

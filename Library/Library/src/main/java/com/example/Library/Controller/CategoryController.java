@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @CrossOrigin
 @Controller
-@RequestMapping("/api/categories")
+@RequestMapping("/api/category")
 public class CategoryController {
 
     //@Autowired

@@ -75,10 +75,10 @@ import java.util.List;
 import java.util.Optional;
 
 //@RestController
-@Controller
-@RequestMapping("/api/authors")
-@RequiredArgsConstructor
 @CrossOrigin
+@Controller
+@RequestMapping("/api/author")
+@RequiredArgsConstructor
 public class AuthorController {
 
     //@Autowired

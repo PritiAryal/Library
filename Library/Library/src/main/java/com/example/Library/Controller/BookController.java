@@ -66,8 +66,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
+@CrossOrigin
 @Controller
-@RequestMapping("/api/books")
+@RequestMapping("/api/book")
 public class BookController {
 
     private final BookService bookService;

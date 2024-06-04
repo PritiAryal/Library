@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @CrossOrigin
 @Controller
-@RequestMapping("/api/loans")
+@RequestMapping("/api/loan")
 public class LoanController {
 
     //@Autowired
