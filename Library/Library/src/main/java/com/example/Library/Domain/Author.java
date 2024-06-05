@@ -96,7 +96,7 @@ public class Author {
     private String name;
     private String biography;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany( fetch = FetchType.LAZY, mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     //private Set<Book> books;
     private List<Book> books = new ArrayList<>();
 }

@@ -225,29 +225,29 @@ import com.example.Library.Repository.AuthorRepository;
 import com.example.Library.Repository.BookRepository;
 import com.example.Library.Repository.CategoryRepository;
 import com.example.Library.Repository.LoanRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class BookService {
 
-    private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
-    private final CategoryRepository categoryRepository;
-
-    private final LoanRepository loanRepository;
+    @Autowired
+    private BookRepository bookRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, CategoryRepository categoryRepository, LoanRepository loanRepository) {
-        this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
-        this.categoryRepository = categoryRepository;
-        this.loanRepository = loanRepository;
-    }
+    private LoanRepository loanRepository;
+
 
         @Transactional
     public List<Book> getAllBooks() {
@@ -265,74 +265,148 @@ public class BookService {
     }
 
 
+//    @Transactional
+//    public Book saveBook(Book book) {
+//         //Check if the author already exists
+////        Optional<Author> existingAuthor = authorRepository.findByName(book.getAuthor().getName());
+////        if (existingAuthor.isPresent()) {
+////            book.setAuthor(existingAuthor.get());
+////        } else {
+////            // If author doesn't exist, save the new author and set it to the book
+////            Author newAuthor = authorRepository.save(book.getAuthor());
+////            book.setAuthor(newAuthor);
+////        }
+////        Optional<Category> existingCategory = categoryRepository.findByCategoryName(book.getCategory().getCategoryName());
+////        if (existingCategory.isPresent()) {
+////            book.setCategory(existingCategory.get());
+////        } else {
+////            // If category doesn't exist, save the new category and set it to the book
+////            Category newCategory = categoryRepository.save(book.getCategory());
+////            book.setCategory(newCategory);
+////        }
+//
+//        Author author = book.getAuthor();
+//        if (author != null) {
+//            // Check if the author already exists
+//            Optional<Author> existingAuthor = authorRepository.findByName(author.getName());
+//            if (existingAuthor.isPresent()) {
+//                book.setAuthor(existingAuthor.get());
+//            } else {
+//                // If author doesn't exist, save the new author and set it to the book
+//                Author newAuthor = authorRepository.save(author);
+//                book.setAuthor(newAuthor);
+//            }
+//        }
+//        Category category = book.getCategory();
+//        if (category != null) {
+//            // Check if the category already exists
+//            Optional<Category> existingCategory = categoryRepository.findByCategoryName(category.getCategoryName());
+//            if (existingCategory.isPresent()) {
+//                book.setCategory(existingCategory.get());
+//            } else {
+//                // If category doesn't exist, save the new category and set it to the book
+//                Category newCategory = categoryRepository.save(category);
+//                book.setCategory(newCategory);
+//            }
+//        }
+//
+//        // Save the book
+//        return bookRepository.save(book);
+//    }
+//@Override
+//    @Transactional
+//    public Book saveBook(Book book) {
+//        return bookRepository.save(book);
+//    }
+@Transactional
+public Book saveBook(Book book, Integer categoryID, Integer authorID) {
+    // Fetch the Category entity from the database using the provided categoryID
+    Category category = categoryRepository.findById(categoryID)
+            .orElseThrow(() -> new RuntimeException("Category not found"));
+
+    // Fetch the Author entity from the database using the provided authorID
+    Author author = authorRepository.findById(authorID)
+            .orElseThrow(() -> new RuntimeException("Author not found"));
+
+    // Set the Category and Author entities to the Book instance
+    book.setCategory(category);
+    book.setAuthor(author);
+
+    // Save the Book instance
+    return bookRepository.save(book);
+}
+
+
+//    @Transactional
+//    public Book updateBookWithAssociations(Integer bookId, Book bookDetails) {
+//        Optional<Book> optionalBook = bookRepository.findById(bookId);
+//        if (optionalBook.isPresent()) {
+//            Book book = optionalBook.get();
+//
+//            // Update book details
+//            book.setTitle(bookDetails.getTitle());
+//            book.setISBN(bookDetails.getISBN());
+//            book.setPublisher(bookDetails.getPublisher());
+//            book.setYearPublished(bookDetails.getYearPublished());
+//
+//            // Update Author if provided
+//            if (bookDetails.getAuthor() != null) {
+//                Author author = authorRepository.findById(bookDetails.getAuthor().getAuthorID())
+//                        .orElseThrow(() -> new ResourceNotFoundException("Author not found"));
+//                book.setAuthor(author);
+//            }
+//
+//            // Update Category if provided
+//            if (bookDetails.getCategory() != null) {
+//                Category category = categoryRepository.findById(bookDetails.getCategory().getCategoryID())
+//                        .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+//                book.setCategory(category);
+//            }
+//
+//            // Update Loans if provided
+//            if (bookDetails.getLoans() != null) {
+//                book.getLoans().clear();
+//                for (Loan loan : bookDetails.getLoans()) {
+//                    Loan existingLoan = loanRepository.findById(loan.getLoanID())
+//                            .orElseThrow(() -> new ResourceNotFoundException("Loan not found"));
+//                    book.getLoans().add(existingLoan);
+//                }
+//            }
+//
+//            return bookRepository.save(book);
+//        } else {
+//            throw new ResourceNotFoundException("Book not found");
+//        }
+//    }
+
     @Transactional
-    public Book saveBook(Book book) {
-        // Check if the author already exists
-        Optional<Author> existingAuthor = authorRepository.findByName(book.getAuthor().getName());
-        if (existingAuthor.isPresent()) {
-            book.setAuthor(existingAuthor.get());
-        } else {
-            // If author doesn't exist, save the new author and set it to the book
-            Author newAuthor = authorRepository.save(book.getAuthor());
-            book.setAuthor(newAuthor);
-        }
-
-        // Check if the category already exists
-        Optional<Category> existingCategory = categoryRepository.findByCategoryName(book.getCategory().getCategoryName());
-        if (existingCategory.isPresent()) {
-            book.setCategory(existingCategory.get());
-        } else {
-            // If category doesn't exist, save the new category and set it to the book
-            Category newCategory = categoryRepository.save(book.getCategory());
-            book.setCategory(newCategory);
-        }
-
-        // Save the book
-        return bookRepository.save(book);
-    }
-
-    public Book updateBookWithAssociations(Integer bookId, Book bookDetails) {
+    public Book updateBook(Integer bookId, Book updatedBook) {
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isPresent()) {
-            Book book = optionalBook.get();
+            Book existingBook = optionalBook.get();
 
-            // Update book details
-            book.setTitle(bookDetails.getTitle());
-            book.setISBN(bookDetails.getISBN());
-            book.setPublisher(bookDetails.getPublisher());
-            book.setYearPublished(bookDetails.getYearPublished());
+            existingBook.setTitle(updatedBook.getTitle());
+            existingBook.setISBN(updatedBook.getISBN());
+            existingBook.setPublisher(updatedBook.getPublisher());
+            existingBook.setYearPublished(updatedBook.getYearPublished());
 
-            // Update Author if provided
-            if (bookDetails.getAuthor() != null) {
-                Author author = authorRepository.findById(bookDetails.getAuthor().getAuthorID())
-                        .orElseThrow(() -> new ResourceNotFoundException("Author not found"));
-                book.setAuthor(author);
-            }
+            // Directly update author and category
+            existingBook.setAuthor(updatedBook.getAuthor());
+            existingBook.setCategory(updatedBook.getCategory());
 
-            // Update Category if provided
-            if (bookDetails.getCategory() != null) {
-                Category category = categoryRepository.findById(bookDetails.getCategory().getCategoryID())
-                        .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
-                book.setCategory(category);
-            }
-
-            // Update Loans if provided
-            if (bookDetails.getLoans() != null) {
-                book.getLoans().clear();
-                for (Loan loan : bookDetails.getLoans()) {
-                    Loan existingLoan = loanRepository.findById(loan.getLoanID())
-                            .orElseThrow(() -> new ResourceNotFoundException("Loan not found"));
-                    book.getLoans().add(existingLoan);
-                }
-            }
-
-            return bookRepository.save(book);
+            return bookRepository.save(existingBook);
         } else {
-            throw new ResourceNotFoundException("Book not found");
+            throw new IllegalArgumentException("Book with ID " + bookId + " not found");
         }
     }
 
-
+//    public Optional<Author> findAuthorById(Integer authorId) {
+//        return authorRepository.findById(authorId);
+//    }
+//
+//    public Optional<Category> findCategoryById(Integer categoryId) {
+//        return categoryRepository.findById(categoryId);
+//    }
 
 
     @Transactional

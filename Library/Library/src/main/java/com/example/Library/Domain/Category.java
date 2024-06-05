@@ -21,7 +21,7 @@ public class Category {
     private Integer categoryID;
     private String categoryName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany( fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     //private Set<Book> books;
     private List<Book> books = new ArrayList<>();
 

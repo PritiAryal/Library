@@ -31,3 +31,37 @@ const BookList = () => {
 };
 
 export default BookList;
+
+// import React, { useEffect, useState } from "react";
+// import axios from "../../api/axiosConfig";
+
+// const BookList = () => {
+//   const [books, setBooks] = useState([]);
+
+//   useEffect(() => {
+//     axios
+//       .get("/book")
+//       .then((response) => {
+//         setBooks(response.data);
+//       })
+//       .catch((error) => {
+//         console.error("There was an error fetching the books!", error);
+//       });
+//   }, []);
+
+//   return (
+//     <div>
+//       <h2>Book List</h2>
+//       <ul>
+//         {books.map((book) => (
+//           <li key={book.bookID}>
+//             {book.title} - {book.publisher} - {book.category.name} -{" "}
+//             {book.author.name}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export default BookList;
