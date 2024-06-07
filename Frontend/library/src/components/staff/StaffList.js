@@ -22,7 +22,9 @@ const StaffList = () => {
       <ul>
         {staff.map((staffMember) => (
           <li key={staffMember.staffID}>
-            {staffMember.staffName} - {staffMember.staffEmail}
+            {staffMember.staffName} - {staffMember.staffEmail} -{" "}
+            {staffMember.staffUsername} - {staffMember.password} -{" "}
+            {staffMember.staffPhone}
           </li>
         ))}
       </ul>

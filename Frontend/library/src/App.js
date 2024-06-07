@@ -97,32 +97,90 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
-import AuthorPage from "./pages/AuthorPage";
-import CategoryPage from "./pages/CategoryPage";
-import LoanPage from "./pages/LoanPage";
-import MemberPage from "./pages/MemberPage";
-import TransactionPage from "./pages/TransactionPage";
-import BookPage from "./pages/BookPage";
-import StaffPage from "./pages/StaffPage";
-import OperationPage from "./pages/OperationPage";
+// import AuthorPage from "./pages/AuthorPage";
+// import CategoryPage from "./pages/CategoryPage";
+// import LoanPage from "./pages/LoanPage";
+// import MemberPage from "./pages/MemberPage";
+// import TransactionPage from "./pages/TransactionPage";
+// import BookPage from "./pages/BookPage";
+// import StaffPage from "./pages/StaffPage";
+// import OperationPage from "./pages/OperationPage";
+import LoginPage from "./pages/LoginPage";
+import PrivateRoute from "./components/PrivateRoute";
+import StaffDashboard from "./pages/StaffDashboard";
+//import Navigation from "./components/Navigation";
+//import PrivateRoute from "./components/PrivateRoute";
+import BookList from "./components/book/BookList";
+import CreateBook from "./components/book/CreateBook";
+import UpdateBook from "./components/book/UpdateBook";
+// import DeleteBook from "./components/book/DeleteBook";
+import "./index.css";
 
 const App = () => {
   return (
     <Router>
-      <Navigation />
+      {/* <Navigation /> */}
       <Routes>
         <Route path="/" exact ele={Home} />
-        <Route path="/book" element={<BookPage />} />
-        <Route path="/operation" element={<OperationPage />} />
-        <Route path="/staff" element={<StaffPage />} />
-        <Route path="/author" element={<AuthorPage />} />
-        <Route path="/category" element={<CategoryPage />} />
-        <Route path="/loan" element={<LoanPage />} />
-        <Route path="/member" element={<MemberPage />} />
-        <Route path="/transaction" element={<TransactionPage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/books"
+          element={
+            <PrivateRoute>
+              {" "}
+              <BookList />{" "}
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/books/create"
+          element={
+            <PrivateRoute>
+              {" "}
+              <CreateBook />{" "}
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/books/update/:id"
+          element={
+            <PrivateRoute>
+              {" "}
+              <UpdateBook />{" "}
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              {" "}
+              <StaffDashboard />{" "}
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );
 };
 
 export default App;
+
+//   /* <Route path="/book" element={<BookPage />} />
+// <Route path="/operation" element={<OperationPage />} />
+// <Route path="/staff" element={<StaffPage />} />
+// <Route path="/author" element={<AuthorPage />} />
+// <Route path="/category" element={<CategoryPage />} />
+// <Route path="/loan" element={<LoanPage />} />
+// <Route path="/member" element={<MemberPage />} />
+// <Route path="/transaction" element={<TransactionPage />} />
+//         <Route
+//           path="/staffdashboard"
+//           element={
+//             <PrivateRoute>
+//               <StaffDashboard />
+//             </PrivateRoute>
+//           }
+//         />
+//       </Routes>*/

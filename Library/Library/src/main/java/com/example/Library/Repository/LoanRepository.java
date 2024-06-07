@@ -19,4 +19,6 @@ public interface LoanRepository extends JpaRepository<Loan, Integer> {
 
     // Method to delete a book by its ID
     void deleteById(int id);
+    List<Loan> findByMemberMemberID(Integer memberID);
+    List<Loan> findByBookBookID(Integer bookID);
 }

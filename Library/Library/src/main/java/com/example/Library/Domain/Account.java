@@ -4,17 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
 import jakarta.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Token {
+@Entity
+public class Account {
+
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private String token;
-}
+    private Integer id;
+    private String name;
 
+    private String password;
+
+
+}

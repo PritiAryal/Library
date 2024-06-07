@@ -3,10 +3,8 @@ package com.example.Library.Service;
 
 import com.example.Library.Domain.*;
 import com.example.Library.Exception.ResourceNotFoundException;
-import com.example.Library.Repository.AuthorRepository;
-import com.example.Library.Repository.StaffRepository;
-import com.example.Library.Repository.CategoryRepository;
-import com.example.Library.Repository.LoanRepository;
+import com.example.Library.Repository.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class StaffService {
 
@@ -23,14 +22,25 @@ public class StaffService {
 
     private final LoanRepository loanRepository;
 
-    @Autowired
-    public StaffService(StaffRepository staffRepository, AuthorRepository authorRepository, CategoryRepository categoryRepository, LoanRepository loanRepository) {
-        this.staffRepository = staffRepository;
-        this.authorRepository = authorRepository;
-        this.categoryRepository = categoryRepository;
-        this.loanRepository = loanRepository;
-    }
 
+    private final AccountRepository accountRepository;
+
+    @Transactional
+    public boolean validateStaffLogin(Login login) {
+        Optional<Staff> staff = staffRepository.findByStaffUserName(login.getName());
+
+
+
+        if (!staff.isPresent()) {
+            return false;
+        }
+
+
+        System.out.println("login pass " + login.getPassword());
+        System.out.println("database pass " + staff.get().getPassword());
+
+        return login.getPassword().equals(staff.get().getPassword());
+    }
     @Transactional
     public List<Staff> getAllStaffs() {
         return staffRepository.findAll();

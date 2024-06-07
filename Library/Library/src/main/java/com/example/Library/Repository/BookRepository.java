@@ -10,14 +10,14 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Integer> {
     // Custom query methods if needed
     // Method to retrieve all books
-    List<Book> findAll();
-
-    // Method to retrieve a book by its ID
-    Book findById(int id);
-
-    // Method to save a book
-    Book save(Book book);
-
-    // Method to delete a book by its ID
-    void deleteById(int id);
+//    List<Book> findAll();
+//
+//    // Method to retrieve a book by its ID
+//  Book findById(int id);
+//
+//    // Method to save a book
+//    Book save(Book book);
+//
+//    // Method to delete a book by its ID
+//    void deleteById(int id);
 }

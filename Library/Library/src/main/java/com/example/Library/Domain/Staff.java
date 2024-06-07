@@ -20,7 +20,12 @@ public class Staff {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer staffID;
     private String staffName;
+
+    @Column(unique = true, nullable = false)
+    private String staffUserName;
     private String staffEmail;
+    private String password;
+    private Integer staffPhone;
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true)

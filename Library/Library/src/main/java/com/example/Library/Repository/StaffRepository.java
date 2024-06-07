@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Integer> {
@@ -19,4 +20,5 @@ public interface StaffRepository extends JpaRepository<Staff, Integer> {
 
     // Method to delete a book by its ID
     void deleteById(int id);
+    Optional<Staff> findByStaffUserName(String name);
 }
