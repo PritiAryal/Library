@@ -25,7 +25,7 @@ public class StaffController {
     //@Autowired
     private final StaffService staffService;
 
-   // @Autowired
+    // @Autowired
     private final SecurityService securityService;
 
     //@Autowired
@@ -67,16 +67,16 @@ public class StaffController {
     }
 
     // Other methods as needed
-    @PostMapping( "/login")
+    @PostMapping("/login")
     @CrossOrigin
-    public ResponseEntity<Map<String,Object>> validateUserLogin(@RequestBody Login login) {
+    public ResponseEntity<Map<String, Object>> validateUserLogin(@RequestBody Login login) {
         System.out.println("Login Server TEST");
         System.out.println(login.getName());
         //System.out.println(login.getEmail());
         System.out.println(login.getPassword());
 
 
-        String token = securityService.createToken(login.getName(), (1*10000*10));
+        String token = securityService.createToken(login.getName(), (1 * 10000 * 10));
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("token", token);
 
@@ -89,35 +89,6 @@ public class StaffController {
 
     }
 
-
-
-
-//    @PostMapping("/loggedInStaff")
-//    @CrossOrigin
-//    public ResponseEntity<?> loggedInStaff(@RequestHeader("Authorization") String tokenHeader) {
-//        if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
-//            String token = tokenHeader.substring(7);
-//            System.out.println("Received token: " + token);
-//
-//            String userId = securityService.getStaffIdFromToken(token);
-//            if (userId != null) {
-//                System.out.println("Extracted staff ID: " + userId);
-//                // Extracting the actual user ID from the string "User ID: 1"
-//                String extractedUserId = userId.split(":")[1].trim(); // Assuming the ID comes after the colon and might have leading/trailing spaces
-//
-//                Map<String, String> response = new HashMap<>();
-//                response.put("message", "Staff ID extracted from token");
-//                response.put("staffID", extractedUserId);
-//                return ResponseEntity.ok(response);
-//            } else {
-//                System.out.println("Error extracting staff ID from token");
-//                return ResponseEntity.badRequest().body("Error extracting staff ID from token");
-//            }
-//        } else {
-//            System.out.println("Invalid or missing token");
-//            return ResponseEntity.badRequest().body("Invalid or missing token");
-//        }
-//    }
 
     @PostMapping("/loggedInStaff")
     @CrossOrigin
@@ -143,6 +114,7 @@ public class StaffController {
             return ResponseEntity.badRequest().body("Invalid or missing token");
         }
     }
+}
 
 
 //    @PostMapping("/loggedInStaff")
@@ -175,7 +147,33 @@ public class StaffController {
 //    }
 
 
-}
+//}
 
+//    @PostMapping("/loggedInStaff")
+//    @CrossOrigin
+//    public ResponseEntity<?> loggedInStaff(@RequestHeader("Authorization") String tokenHeader) {
+//        if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
+//            String token = tokenHeader.substring(7);
+//            System.out.println("Received token: " + token);
+//
+//            String userId = securityService.getStaffIdFromToken(token);
+//            if (userId != null) {
+//                System.out.println("Extracted staff ID: " + userId);
+//                // Extracting the actual user ID from the string "User ID: 1"
+//                String extractedUserId = userId.split(":")[1].trim(); // Assuming the ID comes after the colon and might have leading/trailing spaces
+//
+//                Map<String, String> response = new HashMap<>();
+//                response.put("message", "Staff ID extracted from token");
+//                response.put("staffID", extractedUserId);
+//                return ResponseEntity.ok(response);
+//            } else {
+//                System.out.println("Error extracting staff ID from token");
+//                return ResponseEntity.badRequest().body("Error extracting staff ID from token");
+//            }
+//        } else {
+//            System.out.println("Invalid or missing token");
+//            return ResponseEntity.badRequest().body("Invalid or missing token");
+//        }
+//    }
 
 

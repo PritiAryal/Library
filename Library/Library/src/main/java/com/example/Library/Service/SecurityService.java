@@ -1,7 +1,9 @@
 package com.example.Library.Service;
 
 
+import com.example.Library.Domain.Member;
 import com.example.Library.Exception.ResourceNotFoundException;
+import com.example.Library.Repository.MemberRepository;
 import com.example.Library.Repository.StaffRepository;
 import com.example.Library.Domain.Staff;
 import io.jsonwebtoken.Claims;
@@ -26,17 +28,19 @@ public class SecurityService {
 
     private static final String SECRET_KEY = "secretkeadfayyeytereadfadfadadkjaldjalflajdces";
 
-   // @Autowired
+    // @Autowired
     private final StaffRepository staffRepository;
 
-   // @Transactional
-   private byte[] getSecretKeyBytes() {
-       return DatatypeConverter.parseBase64Binary(SECRET_KEY);
+    private final MemberRepository memberRepository;
+
+    // @Transactional
+    private byte[] getSecretKeyBytes() {
+        return DatatypeConverter.parseBase64Binary(SECRET_KEY);
     }
 
     @Transactional
-    public String createToken(String subject, long expTime){
-        if(expTime <=0){
+    public String createToken(String subject, long expTime) {
+        if (expTime <= 0) {
             throw new RuntimeException("expired");
         }
 
@@ -54,7 +58,7 @@ public class SecurityService {
     }
 
     @Transactional
-    public String getSubject(String token){
+    public String getSubject(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
                 .build()
@@ -88,6 +92,24 @@ public class SecurityService {
         }
     }
 
+    @Transactional
+    public String getMemberIdFromToken(String token) {
+        byte[] secretKeyBytes = getSecretKeyBytes();
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(secretKeyBytes)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        String userName = claims.getSubject(); // Assuming the userName is stored as the subject in the token
+        Optional<Member> member = memberRepository.findByUserName(userName);
+        if (member.isPresent()) {
+            return String.valueOf(member.get().getMemberID());
+        }
+        return null; // Return null if member not found
+    }
+}
+
 //    @Transactional
 //    public Map<String, Object> getStaffInfoFromToken(String token) {
 //        byte[] secretKeyBytes = getSecretKeyBytes();
@@ -112,5 +134,5 @@ public class SecurityService {
 //        }
 //    }
 
-}
+
 

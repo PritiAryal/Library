@@ -22,8 +22,8 @@ public class Transaction{
     private Integer transactionID;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "loanID", referencedColumnName = "loanID", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "loanID", referencedColumnName = "loanID")
     private Loan loan;
 
     private Date transactionDate;

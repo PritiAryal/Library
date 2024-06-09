@@ -99,7 +99,7 @@ import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 // import AuthorPage from "./pages/AuthorPage";
 // import CategoryPage from "./pages/CategoryPage";
-// import LoanPage from "./pages/LoanPage";
+import LoanPage from "./pages/LoanPage";
 // import MemberPage from "./pages/MemberPage";
 // import TransactionPage from "./pages/TransactionPage";
 // import BookPage from "./pages/BookPage";
@@ -108,6 +108,7 @@ import Home from "./components/Home";
 import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./components/PrivateRoute";
 import StaffDashboard from "./pages/StaffDashboard";
+import MemberDashboard from "./pages/MemberDashboard";
 //import Navigation from "./components/Navigation";
 //import PrivateRoute from "./components/PrivateRoute";
 import BookList from "./components/book/BookList";
@@ -124,6 +125,7 @@ const App = () => {
         <Route path="/" exact ele={Home} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/loan" element={<LoanPage />} />
         <Route
           path="/books"
           element={
@@ -152,11 +154,19 @@ const App = () => {
           }
         />
         <Route
-          path="/dashboard"
+          path="/staffdashboard"
           element={
             <PrivateRoute>
               {" "}
               <StaffDashboard />{" "}
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/memberdashboard"
+          element={
+            <PrivateRoute>
+              <MemberDashboard />
             </PrivateRoute>
           }
         />

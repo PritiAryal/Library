@@ -20,16 +20,16 @@ public class Loan {
     private Integer loanID;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "bookID", referencedColumnName = "bookID", nullable=false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "bookID", referencedColumnName = "bookID", nullable = false)
     private Book book;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "memberID", referencedColumnName = "memberID", nullable=false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "memberID", referencedColumnName = "memberID", nullable = false)
     private Member member;
 
-
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
     //private Set<Transaction> transactions = new HashSet<>();
     private List<Transaction> transactions = new ArrayList<>();
@@ -37,6 +37,18 @@ public class Loan {
     private Date loanDate;
     private Date dueDate;
     private Date returnDate;
+    private String status; // New field
+
+    // Custom logic for setting return date based on status
+    public void setStatus(String status) {
+        this.status = status;
+        if ("returned".equalsIgnoreCase(status)) {
+            this.returnDate = new Date();
+        } else {
+            this.returnDate = new Date(0); // Default to epoch time
+        }
+    }
+}
 
 //    public Loan(Book book, Member member, Date loanDate, Date dueDate) {
 //        this.book = book;
@@ -93,7 +105,7 @@ public class Loan {
 //    public void setReturnDate(Date returnDate) {
 //        this.returnDate = returnDate;
 //    }
-}
+
 
 
 

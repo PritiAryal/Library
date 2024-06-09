@@ -132,6 +132,8 @@ const CreateBook = () => {
   const [categoryID, setCategoryID] = useState("");
   const [authors, setAuthors] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     api
@@ -145,8 +147,57 @@ const CreateBook = () => {
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
 
+  const validateFields = async () => {
+    if (
+      !title ||
+      !isbn ||
+      !publisher ||
+      !yearPublished ||
+      !authorID ||
+      !categoryID
+    ) {
+      setError("All fields are required.");
+      return false;
+    }
+
+    if (title.length < 6) {
+      setError("Title must be at least 6 characters long.");
+      return false;
+    }
+
+    if (isbn.length !== 10 || isNaN(isbn)) {
+      setError("ISBN must be 10 digit.");
+      return false;
+    }
+
+    try {
+      const response = await api.get("/book");
+      const existingBooks = response.data;
+      const bookExists = existingBooks.some((book) => book.isbn === isbn);
+      if (bookExists) {
+        setError("Book with the same ISBN already exists.");
+        return false;
+      }
+    } catch (error) {
+      console.error("Error checking ISBN:", error);
+    }
+
+    if (yearPublished < 1800 || yearPublished > new Date().getFullYear()) {
+      setError("Year Published must be between 1800 and current year.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // Validate form fields
+    const isValid = await validateFields();
+    if (!isValid) {
+      return;
+    }
+
     const staffIdResponse = await api.post("/staff/loggedInStaff");
     console.log("Staff ID response:", staffIdResponse);
     const staffID = staffIdResponse.data.staffID; // Ensure correct key
@@ -175,9 +226,26 @@ const CreateBook = () => {
       });
       // Handle success - clear form, show message, etc.
       console.log("Book created successfully");
+      setSuccessMessage("Book created successfully");
+      // Reset form fields
+      setTitle("");
+      setIsbn("");
+      setPublisher("");
+      setYearPublished("");
+      setAuthorID("");
+      setCategoryID("");
     } catch (error) {
       console.error("Error creating book:", error);
+      setError("Error creating book.");
     }
+  };
+
+  const handleCloseError = () => {
+    setError("");
+  };
+
+  const handleCloseSuccess = () => {
+    setSuccessMessage("");
   };
 
   // return (
@@ -248,6 +316,22 @@ const CreateBook = () => {
         Create Book
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+        {error && (
+          <div className="text-red-500 mb-4">
+            {error}
+            <button onClick={handleCloseError} className="float-right">
+              X
+            </button>
+          </div>
+        )}
+        {successMessage && (
+          <div className="text-green-500 mb-4">
+            {successMessage}
+            <button onClick={handleCloseSuccess} className="float-right">
+              X
+            </button>
+          </div>
+        )}
         <div>
           <label
             htmlFor="title"
@@ -273,7 +357,7 @@ const CreateBook = () => {
             ISBN
           </label>
           <input
-            type="text"
+            type="number"
             id="isbn"
             placeholder="Enter ISBN"
             value={isbn}
@@ -307,12 +391,14 @@ const CreateBook = () => {
             Year Published
           </label>
           <input
-            type="text"
+            type="number"
             id="yearPublished"
             placeholder="Enter year published"
             value={yearPublished}
             onChange={(e) => setYearPublished(e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            min="1800" // Set the minimum allowed value
+            max={new Date().getFullYear()} // Set the maximum allowed value to the current year
             required
           />
         </div>
@@ -362,7 +448,7 @@ const CreateBook = () => {
         </div>
         <button
           type="submit"
-          className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-gray-800 shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-gray-800 shadow-lg hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Create Book
         </button>

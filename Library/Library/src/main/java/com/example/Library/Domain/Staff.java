@@ -27,7 +27,7 @@ public class Staff {
     private String password;
     private Integer staffPhone;
 
-
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Operation> operations = new HashSet<>();
    // private List<Operation> operations = new ArrayList<>();

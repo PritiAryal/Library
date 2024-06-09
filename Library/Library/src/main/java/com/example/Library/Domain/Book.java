@@ -40,14 +40,15 @@ public class Book {
     //@NotNull
     private Author author;
 
-
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Operation> operations = new HashSet<>();
 
 //    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
 //    private Set<Loan> loans;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+@JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true) //fetch = FetchType.LAZY,
     private Set<Loan> loans = new HashSet<>();
 
 }

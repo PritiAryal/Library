@@ -1,5 +1,6 @@
 package com.example.Library.Service;
 
+import com.example.Library.Domain.Login;
 import com.example.Library.Domain.Member;
 import com.example.Library.Repository.MemberRepository;
 import jakarta.transaction.Transactional;
@@ -16,6 +17,20 @@ public class MemberService { //implements MemberService0 {
     //@Autowired
     private final MemberRepository memberRepository;
 
+    @Transactional
+    public boolean validateMemberLogin(Login login) {
+        Optional<Member> member = memberRepository.findByUserName(login.getName());
+        if (!member.isPresent()) {
+            return false;
+        }
+        return login.getPassword().equals(member.get().getPassword());
+    }
+
+    @Transactional
+    public Optional<Member> findByUserName(String userName) {
+        return memberRepository.findByUserName(userName);
+    }
+
     //@Override
     @Transactional
     public List<Member> getAllMembers() {
@@ -25,7 +40,7 @@ public class MemberService { //implements MemberService0 {
     //@Override
     @Transactional
     public Member getMemberById(int id) {
-        return memberRepository.findById(id); //.orElse(null);
+        return memberRepository.findById(id).orElse(null);
     }
 
     //@Override

@@ -188,8 +188,10 @@ public class BookController {
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Integer id,
                                            @RequestBody Book book,
+                                           @RequestParam Integer authorID,
+                                           @RequestParam Integer categoryID,
                                            @RequestParam Integer staffID) {
-        Book updatedBook = bookService.updateBook(id, book, staffID, "Update");
+        Book updatedBook = bookService.updateBook(id, book, authorID, categoryID, staffID, "Update");
         return new ResponseEntity<>(updatedBook, HttpStatus.OK);
     }
 

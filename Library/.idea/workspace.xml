@@ -5,32 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0844a34d-5a6c-4ae1-a9f6-aa060ba84343" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Controller/DashboardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Domain/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Repository/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/library/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/library/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/library/src/api/axiosConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/library/src/api/axiosConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/library/src/components/book/BookList.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/library/src/components/book/BookList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/library/src/components/book/CreateBook.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/library/src/components/book/CreateBook.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/library/src/components/book/DeleteBook.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/library/src/components/book/DeleteBook.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/library/src/components/book/UpdateBook.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/library/src/components/book/UpdateBook.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/library/src/components/staff/CreateStaff.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/library/src/components/staff/CreateStaff.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/library/src/components/staff/StaffList.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/library/src/components/staff/StaffList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Library/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Controller/OperationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Controller/OperationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Controller/StaffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Controller/StaffController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Domain/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Domain/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Domain/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Domain/Staff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Domain/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Domain/Token.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Repository/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Repository/BookRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Repository/LoanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Repository/LoanRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Repository/OperationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Repository/OperationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Repository/StaffRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Repository/StaffRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Service/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Service/OperationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Service/OperationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Service/SecurityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Service/SecurityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Service/StaffService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Library/src/main/java/com/example/Library/Service/StaffService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,24 +35,24 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2hWCFsbGD7Fj6drfNLfIXjVJI1P" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/priti/Downloads/project db theory/Library/Library",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/priti/Downloads/project db theory/Library/Library&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -87,6 +62,7 @@
       <option name="presentableId" value="Default" />
       <updated>1717700345599</updated>
       <workItem from="1717700346617" duration="46000" />
+      <workItem from="1717813598387" duration="205000" />
     </task>
     <servers />
   </component>

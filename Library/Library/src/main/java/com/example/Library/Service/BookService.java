@@ -453,16 +453,26 @@ public class BookService {
     }
 
     @Transactional
-    public Book updateBook(Integer bookId, Book updatedBook, Integer staffID, String operationType) {
+    public Book updateBook(Integer bookId, Book updatedBook, Integer authorID, Integer categoryID, Integer staffID, String operationType) {
         Book existingBook = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException("Book with ID " + bookId + " not found"));
+
+
+        // Fetch the existing Author entity
+        Author author = authorRepository.findById(authorID)
+                .orElseThrow(() -> new IllegalArgumentException("Author not found"));
+
+        Category category = categoryRepository.findById(categoryID)
+                .orElseThrow(() -> new IllegalArgumentException("Author not found"));
 
         existingBook.setTitle(updatedBook.getTitle());
         existingBook.setISBN(updatedBook.getISBN());
         existingBook.setPublisher(updatedBook.getPublisher());
         existingBook.setYearPublished(updatedBook.getYearPublished());
-        existingBook.setAuthor(updatedBook.getAuthor());
-        existingBook.setCategory(updatedBook.getCategory());
+//        existingBook.setAuthor(updatedBook.getAuthor());
+        existingBook.setAuthor(author);
+        existingBook.setCategory(category);
+        //existingBook.setCategory(updatedBook.getCategory());
 
         Book savedBook = bookRepository.save(existingBook);
 
