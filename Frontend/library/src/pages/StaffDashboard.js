@@ -837,12 +837,20 @@ const StaffDashboard = () => {
     navigate("/login");
   };
 
+  const handleBookCreateSuccess = (newBook) => {
+    setBooks((prevBooks) => [...prevBooks, newBook]);
+  };
+
   return (
     <div className="bg-custom min-h-screen bg-repeat-y py-4">
       <div className="container mx-auto flex justify-between items-center px-4">
-        <h1 className="text-3xl font-bold text-gray-800">Library Manager</h1>
+        <h1 className="text-3xl text-blue-300 font-bold uppercase">
+          Library Manager
+        </h1>
         <div className="flex items-center">
-          <p className="text-gray-800 mr-4">Hi, {staff || "Staff"}</p>
+          <p className="text-gray-800 mr-4 font-semibold textt-shadow uppercase">
+            Hi, {staff || "Staff"}
+          </p>
           <button
             onClick={handleLogout}
             className="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded"
@@ -853,12 +861,12 @@ const StaffDashboard = () => {
       </div>
       <div className="container mx-auto flex">
         <div className="w-3/4 p-8">
-          <h2 className="text-xl text-gray-800 py-10 font-semibold mb-4">
+          <h2 className="text-xl text-gray-800 py-10 font-semibold mb-4 text-shdow uppercase">
             Welcome, {staff || "Staff"}!
           </h2>
 
-          <div className="mb-10 p-8 rounded-lg shadow-lg font-semibold bg-opacity-50 bg-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-white border-b-2 border-blue-100 pb-2">
-            <h2 className="text-2xl font-semibold mb-4 border-blue-100 border-b-2 text-gray-800 text-shadow pb-2">
+          <div className="mb-10 p-8 rounded-lg shadow-lg font-semibold bg-opacity-5 bg-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-white border-b-2 border-blue-100 pb-2">
+            <h2 className="text-2xl font-semibold mb-4 border-blue-100 border-b-2 text-gray-800 pb-2">
               All Books
             </h2>
             <div className="mb-4 rounded-lg">
@@ -869,11 +877,12 @@ const StaffDashboard = () => {
               />
             </div>
           </div>
-          <div className="mb-8 p-8 rounded-lg shadow-lg font-semibold bg-opacity-50 bg-blue-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-white border-b-2 border-blue-100 pb-2">
+          <br />
+          <div className="mb-8 p-8 rounded-lg shadow-lg font-semibold bg-opacity-5 bg-blue-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-white border-b-2 border-blue-100 pb-2">
             <h2 className="text-2xl font-semibold mb-4 border-blue-100 border-b-2 text-gray-800 pb-2">
               Your Activity - Operations Log
             </h2>
-            <table className="w-full rounded-lg shadow-lg mb-4 text-white">
+            <table className="text-shadow w-full rounded-lg shadow-lg mb-4 text-white">
               <thead>
                 <tr className="bg-blue-300">
                   {/* <th className="border px-4 py-2">Book ID</th> */}
@@ -924,8 +933,8 @@ const StaffDashboard = () => {
               </tbody>
             </table>
           </div>
-
-          <div className="mb-8 p-8 rounded-lg shadow-lg font-semibold bg-opacity-50 bg-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-white border-b-2 border-blue-100 pb-2">
+          <br />
+          <div className="mb-8 p-8 rounded-lg shadow-lg font-semibold bg-opacity-5 bg-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-white border-b-2 border-blue-100 pb-2">
             {/* <h2 className="flex text-2xl font-semibold mb-4 border-blue-100 border-b-2 text-gray-800 pb-2">
               Members - Transaction
               <button
@@ -958,7 +967,7 @@ const StaffDashboard = () => {
         </div>
         <div className="w-1/4 p-8">
           {/* <h2 className="text-2xl font-semibold mb-4 text-white">Create Book</h2> */}
-          <CreateBook />
+          <CreateBook onCreateSuccess={handleBookCreateSuccess} />
           <br />
           <br />
           <CreateCategory />

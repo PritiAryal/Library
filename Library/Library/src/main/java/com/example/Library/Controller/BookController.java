@@ -170,6 +170,17 @@ public class BookController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Book>> searchBooks(@RequestParam(required = false) String title,
+                                                  @RequestParam(required = false) String publisher,
+                                                  @RequestParam(required = false) String authorName,
+                                                  @RequestParam(required = false) String categoryName,
+                                                  @RequestParam(required = false) Integer yearPublished,
+                                                  @RequestParam(required = false) Long isbn) {
+        List<Book> books = bookService.searchBooks(title, publisher, authorName, categoryName, yearPublished, isbn);
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable int id) {
         Book book = bookService.getBookById(id);

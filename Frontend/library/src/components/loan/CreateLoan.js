@@ -212,7 +212,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../api/axiosConfig";
 
-const CreateLoan = () => {
+const CreateLoan = ({ onClose }) => {
   const [bookID, setBookID] = useState("");
   const [memberID, setMemberID] = useState("");
   const [loanDate, setLoanDate] = useState("");
@@ -247,6 +247,8 @@ const CreateLoan = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const currentDate = new Date();
+
     // Validate input fields
     if (!bookID || !memberID || !loanDate || !dueDate) {
       setMessageType("error");
@@ -260,27 +262,40 @@ const CreateLoan = () => {
       return;
     }
 
+    if (new Date(loanDate) > currentDate) {
+      setMessageType("error");
+      setMessage("Loan date cannot be a future date.");
+      return;
+    }
+
     if (status === "returned" && new Date(returnDate) < new Date(loanDate)) {
       setMessageType("error");
       setMessage("Return date cannot be earlier than loan date.");
       return;
     }
 
-    const newLoan = {
+    let newLoan = {
       bookID,
       memberID,
       loanDate,
-      dueDate,
-      returnDate: status === "not returned" ? new Date(0) : returnDate,
-      status,
+      dueDate, // returnDate: status === "" ? null : returnDate,
+      // status,
     };
+
+    if (status === "returned") {
+      newLoan = { ...newLoan, returnDate };
+    }
 
     axios
       .post(`/loan?bookID=${bookID}&memberID=${memberID}`, newLoan)
       .then((response) => {
         setMessageType("success");
         setMessage("Loan created successfully");
-        setTimeout(() => setMessage(""), 3000); // Clear message after 3 seconds
+        // setTimeout(() => setMessage(""), 3000); // Clear message after 3 seconds
+        setTimeout(() => {
+          setMessage("");
+          onClose(); // Close the modal after successful creation
+        }, 3000); // Clear message after 3 seconds
       })
       .catch((error) => {
         setMessageType("error");
@@ -323,7 +338,7 @@ const CreateLoan = () => {
             >
               <option value="">Select Book</option>
               {books.map((book) => (
-                <option key={book.id} value={book.id}>
+                <option key={book.bookID} value={book.bookID}>
                   {book.title}
                 </option>
               ))}
@@ -339,7 +354,7 @@ const CreateLoan = () => {
             >
               <option value="">Select Member</option>
               {members.map((member) => (
-                <option key={member.id} value={member.id}>
+                <option key={member.memberID} value={member.memberID}>
                   {member.name}
                 </option>
               ))}
@@ -385,7 +400,7 @@ const CreateLoan = () => {
               onChange={(e) => setStatus(e.target.value)}
               className="w-full px-4 py-2 border rounded"
             >
-              <option value="not returned">Not Returned</option>
+              <option value="">Not Returned</option>
               <option value="returned">Returned</option>
             </select>
           </div>

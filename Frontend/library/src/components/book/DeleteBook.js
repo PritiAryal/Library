@@ -85,6 +85,7 @@
 
 import React from "react";
 import api from "../../api/axiosConfig";
+import "../../index.css";
 
 const DeleteBook = ({ bookID, onDeleteSuccess, staffID }) => {
   const handleDelete = async () => {
@@ -96,7 +97,11 @@ const DeleteBook = ({ bookID, onDeleteSuccess, staffID }) => {
     }
   };
 
-  return <button onClick={handleDelete}>Delete</button>;
+  return (
+    <button onClick={handleDelete} className="text-shadow">
+      Delete
+    </button>
+  );
 };
 
 export default DeleteBook;

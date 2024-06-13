@@ -245,7 +245,7 @@ const LoanList = () => {
   return (
     <div className="container mx-auto">
       {/* <h2 className="text-2xl font-bold mb-4">Loan List</h2> */}
-      <table className="table-auto w-full shadow-lg rounded-lg mb-4">
+      <table className="table-auto w-full shadow-lg rounded-lg mb-4 text-shadow">
         <thead>
           <tr className="bg-blue-300">
             <th className="border border-blue-100 px-4 py-2">Loan ID</th>

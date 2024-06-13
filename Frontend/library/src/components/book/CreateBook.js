@@ -123,7 +123,7 @@ const fetchStaffId = async () => {
   }
 };
 
-const CreateBook = () => {
+const CreateBook = ({ onCreateSuccess }) => {
   const [title, setTitle] = useState("");
   const [isbn, setIsbn] = useState("");
   const [publisher, setPublisher] = useState("");
@@ -217,7 +217,7 @@ const CreateBook = () => {
     };
 
     try {
-      await api.post("/book", newBook, {
+      const response = await api.post("/book", newBook, {
         params: {
           categoryID,
           authorID,
@@ -227,6 +227,7 @@ const CreateBook = () => {
       // Handle success - clear form, show message, etc.
       console.log("Book created successfully");
       setSuccessMessage("Book created successfully");
+      onCreateSuccess(response.data);
       // Reset form fields
       setTitle("");
       setIsbn("");
@@ -234,6 +235,8 @@ const CreateBook = () => {
       setYearPublished("");
       setAuthorID("");
       setCategoryID("");
+
+      onCreateSuccess(response.data);
     } catch (error) {
       console.error("Error creating book:", error);
       setError("Error creating book.");
@@ -448,7 +451,7 @@ const CreateBook = () => {
         </div>
         <button
           type="submit"
-          className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-gray-800 shadow-lg hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="w-full py-2 px-4 border border-transparent rounded-md  bg-blue-300 text-white  shadow-lg hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-100"
         >
           Create Book
         </button>

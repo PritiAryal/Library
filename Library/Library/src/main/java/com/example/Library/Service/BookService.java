@@ -422,6 +422,34 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+
+    @Transactional
+    public List<Book> searchBooks(String title, String publisher, String authorName, String categoryName, Integer yearPublished, Long isbn) {
+        if (title != null) {
+            return bookRepository.findByTitleContaining(title);
+        } else if (publisher != null) {
+            return bookRepository.findByPublisherContaining(publisher);
+        } else if (authorName != null) {
+            return bookRepository.findByAuthorName(authorName);
+        } else if (categoryName != null) {
+            return bookRepository.findByCategoryName(categoryName);
+        } else if (yearPublished != null) {
+            return bookRepository.findByYearPublished(yearPublished);
+        } else if (isbn != null) {
+            return bookRepository.findByISBN(isbn);
+        } else {
+            return bookRepository.findAll();
+        }
+    }
+
+    public List<Author> getAllAuthors() {
+        return authorRepository.findAll();
+    }
+
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
+    }
+
     @Transactional
     public Book getBookById(int id) {
         return bookRepository.findById(id)

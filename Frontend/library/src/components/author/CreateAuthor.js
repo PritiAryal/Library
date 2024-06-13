@@ -285,7 +285,7 @@ const CreateAuthor = () => {
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-gray-800 shadow-lg hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-blue-300 shadow-lg hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200"
             type="submit"
           >
             Create Author

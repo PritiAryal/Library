@@ -335,6 +335,14 @@ const CreateMember = () => {
     return () => clearTimeout(timer);
   }, [error, successMessage]);
 
+  useEffect(() => {
+    // Force input event on page load for auto-filled values
+    const passwordField = document.getElementById("memberPassword");
+    if (passwordField && passwordField.value) {
+      passwordField.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+  }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -378,7 +386,7 @@ const CreateMember = () => {
             return;
           }
 
-          const newMember = { name, userName, address, email, phone };
+          const newMember = { name, userName, password, address, email, phone };
           axios
             .post("/member", newMember)
             .then((response) => {
@@ -386,6 +394,7 @@ const CreateMember = () => {
               // Reset form fields after successful submission
               setName("");
               setUserName("");
+              setPassword("");
               setAddress("");
               setEmail("");
               setPhone("");
@@ -399,62 +408,6 @@ const CreateMember = () => {
         console.error("Error fetching existing members:", error);
       });
   };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-
-  //   if (!name || !userName || !address || !email || !phone) {
-  //     setError("All fields are required.");
-  //     return;
-  //   }
-
-  //   if (userName.length !== 10) {
-  //     setError("Username must be 10 characters long.");
-  //     return;
-  //   }
-
-  //   axios
-  //     .get("/member")
-  //     .then((response) => {
-  //       const existingMembers = response.data;
-  //       const userNameExists = existingMembers.some(
-  //         (member) => member.userName === userName
-  //       );
-  //       if (userNameExists) {
-  //         setError("Username already exists.");
-  //       } else {
-  //         const emailPattern = /\S+@\S+\.\S+/;
-  //         if (!emailPattern.test(email)) {
-  //           setError("Please enter a valid email address.");
-  //           return;
-  //         }
-
-  //         if (phone.length !== 10 || isNaN(phone)) {
-  //           setError("Please enter a valid 10-digit phone number.");
-  //           return;
-  //         }
-
-  //         const newMember = { name, userName, address, email, phone };
-  //         axios
-  //           .post("/member", newMember)
-  //           .then((response) => {
-  //             setSuccessMessage("Member created successfully");
-  //             // Reset form fields after successful submission
-  //             setName("");
-  //             setUserName("");
-  //             setAddress("");
-  //             setEmail("");
-  //             setPhone("");
-  //           })
-  //           .catch((error) => {
-  //             console.error("Error creating member:", error);
-  //           });
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching existing members:", error);
-  //     });
-  // };
 
   const handleCloseError = () => {
     setError("");
@@ -578,7 +531,7 @@ const CreateMember = () => {
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-gray-800 shadow-lg hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200"
+            className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-blue-300 shadow-lg hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200"
             type="submit"
           >
             Create Member

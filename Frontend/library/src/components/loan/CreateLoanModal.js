@@ -62,7 +62,7 @@ const CreateLoanModal = ({ isOpen, onClose }) => {
           </svg>
         </button>
         <div className="modal-content p-4">
-          <CreateLoan />
+          <CreateLoan onClose={onClose} />
         </div>
       </div>
     </div>

@@ -870,7 +870,7 @@ const UpdateBook = ({
       className="fixed inset-0 flex items-center justify-center overflow-auto"
     >
       <div className="bg-white p-6 max-w-md w-full mx-auto rounded-lg shadow-lg relative">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-4 border-gray-800 border-b-2 pb-2">
           <h4 className="text-lg font-semibold">Update Book</h4>
           <button
             onClick={onRequestClose}
@@ -923,7 +923,7 @@ const UpdateBook = ({
               ISBN:
             </label>
             <input
-              type="text"
+              type="number"
               id="isbn"
               value={isbn}
               onChange={(e) => setIsbn(e.target.value)}
@@ -997,7 +997,7 @@ const UpdateBook = ({
           <button
             type="button"
             onClick={handleUpdate}
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-300"
+            className="w-full bg-blue-300 text-white py-2 rounded-lg hover:bg-blue-400 shadow-lg text-shadow"
           >
             Update
           </button>

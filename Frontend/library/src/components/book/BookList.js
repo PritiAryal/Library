@@ -495,7 +495,7 @@ const BookList = ({ books, onSelect, staffID }) => {
       {/* <h4>Books</h4> */}
       <table className="w-full rounded-2xl shadow-lg mb-4 text-white">
         <thead>
-          <tr className="bg-blue-300 text-white">
+          <tr className="bg-blue-300 text-white text-shadow">
             <th className="border border-blue-100 px-4 py-2">Title</th>
             <th className="border border-blue-100 px-4 py-2">ISBN</th>
             <th className="border border-blue-100 px-4 py-2">Publisher</th>
@@ -509,7 +509,10 @@ const BookList = ({ books, onSelect, staffID }) => {
           {bookDetails.map((book) => {
             console.log("Book ID:", book.bookID); // Log the bookID
             return (
-              <tr key={book.bookID} className="text-white text-normal">
+              <tr
+                key={book.bookID}
+                className="text-white text-shadow text-normal"
+              >
                 <td className="border border-blue-100 px-4 py-2">
                   {book.title}
                 </td>
@@ -525,13 +528,19 @@ const BookList = ({ books, onSelect, staffID }) => {
                 <td className="border border-blue-100 px-4 py-2">
                   {getCategoryName(book.bookID)}
                 </td>
-                <td className="border border-blue-100 px-4 py-2">
-                  <button onClick={() => handleUpdateClick(book)}>
+                <td className="border border-blue-100 px-4 py-2 cursor-pointer transition-colors hover:bg-blue-400 hover:bg-opacity-35 hover:shadow-md">
+                  <button
+                    onClick={() => handleUpdateClick(book)}
+                    className="text-shadow"
+                  >
                     Update
                   </button>
                 </td>
-                <td className="border border-blue-100 px-4 py-2">
-                  <button onClick={() => handleDeleteSuccess(book.bookID)}>
+                <td className="border border-blue-100 px-4 py-2 cursor-pointer transition-colors hover:bg-blue-400 hover:bg-opacity-35 hover:shadow-md">
+                  <button
+                    onClick={() => handleDeleteSuccess(book.bookID)}
+                    className="text-shadow"
+                  >
                     <DeleteBook
                       bookID={book.bookID}
                       onDeleteSuccess={handleDeleteSuccess}

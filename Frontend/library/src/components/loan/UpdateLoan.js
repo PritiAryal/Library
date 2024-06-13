@@ -267,7 +267,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../api/axiosConfig";
 
-const UpdateLoan = ({ loan, closeModal }) => {
+const UpdateLoan = ({ loan, closeModal, onDataUpdate }) => {
   const [loanDetails, setLoanDetails] = useState({
     ...loan,
     loanDate: loan.loanDate ? loan.loanDate.substring(0, 16) : "", // Strip seconds if present
@@ -317,9 +317,9 @@ const UpdateLoan = ({ loan, closeModal }) => {
   };
 
   return (
-    <div className="text-black fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+    <div className="text-black fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-85">
       <div className="bg-white p-6 rounded shadow-lg w-1/2">
-        <h2 className="text-xl font-bold mb-4 text-center border-gray-800 border-b-2 pb-2">
+        <h2 className="text-lg font-bold mb-4 text-left border-gray-800 border-b-2 pb-2">
           Update Loan
         </h2>
         <div className="mb-4">
@@ -365,7 +365,7 @@ const UpdateLoan = ({ loan, closeModal }) => {
           </button>
           <button
             onClick={handleSave}
-            className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-gray-800 shadow-lg hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-blue-300 shadow-lg hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200 text-shadow"
           >
             Save
           </button>
