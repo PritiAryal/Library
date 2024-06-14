@@ -29,10 +29,10 @@ public class Loan {
     @JoinColumn(name = "memberID", referencedColumnName = "memberID", nullable = false)
     private Member member;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private Set<Transaction> transactions = new HashSet<>();
-    private List<Transaction> transactions = new ArrayList<>();
+//    @JsonIgnore
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
+//    //private Set<Transaction> transactions = new HashSet<>();
+//    private List<Transaction> transactions = new ArrayList<>();
 
     private Date loanDate;
     private Date dueDate;

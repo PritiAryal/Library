@@ -28,6 +28,9 @@ public class Book {
     private String publisher;
     private Integer yearPublished;
 
+    @Version
+    private Long version;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "categoryID", referencedColumnName = "categoryID", nullable=false)

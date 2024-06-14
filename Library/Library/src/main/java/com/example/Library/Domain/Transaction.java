@@ -21,10 +21,10 @@ public class Transaction{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer transactionID;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "loanID", referencedColumnName = "loanID")
-    private Loan loan;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "loanID", referencedColumnName = "loanID")
+//    private Loan loan;
 
     private Date transactionDate;
     private String type;

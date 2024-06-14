@@ -400,6 +400,7 @@ import com.example.Library.Domain.*;
 import com.example.Library.Exception.ResourceNotFoundException;
 import com.example.Library.Repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -482,6 +483,7 @@ public class BookService {
 
     @Transactional
     public Book updateBook(Integer bookId, Book updatedBook, Integer authorID, Integer categoryID, Integer staffID, String operationType) {
+        try {
         Book existingBook = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException("Book with ID " + bookId + " not found"));
 
@@ -507,6 +509,10 @@ public class BookService {
         createOperation(savedBook, staffID, operationType);
 
         return savedBook;
+        } catch (ObjectOptimisticLockingFailureException e) {
+            // Handle the optimistic locking failure scenario
+            throw new RuntimeException("Failed to update book due to concurrent update");
+        }
     }
 
     @Transactional
