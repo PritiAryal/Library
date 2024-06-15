@@ -272,6 +272,7 @@ const UpdateLoan = ({ loan, closeModal, onDataUpdate }) => {
     ...loan,
     loanDate: loan.loanDate ? loan.loanDate.substring(0, 16) : "", // Strip seconds if present
     returnDate: loan.returnDate ? loan.returnDate.substring(0, 16) : "", // Strip seconds if present
+    dueDate: loan.dueDate ? loan.dueDate.substring(0, 16) : "", // Strip seconds if present
   });
 
   const handleInputChange = (e) => {
@@ -328,6 +329,16 @@ const UpdateLoan = ({ loan, closeModal, onDataUpdate }) => {
             type="datetime-local"
             name="loanDate"
             value={loanDetails.loanDate}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2">Due Date</label>
+          <input
+            type="datetime-local"
+            name="dueDate"
+            value={loanDetails.dueDate}
             onChange={handleInputChange}
             className="w-full px-4 py-2 border rounded"
           />

@@ -83,6 +83,29 @@
 
 // export default DeleteBook;
 
+// import React from "react";
+// import api from "../../api/axiosConfig";
+// import "../../index.css";
+
+// const DeleteBook = ({ bookID, onDeleteSuccess, staffID }) => {
+//   const handleDelete = async () => {
+//     try {
+//       await api.delete(`/book/${bookID}`, { data: { staffID } }); // Include staffID in the request body
+//       onDeleteSuccess(bookID); // Notify parent about successful deletion
+//     } catch (error) {
+//       console.error("Error deleting book:", error);
+//     }
+//   };
+
+//   return (
+//     <button onClick={handleDelete} className="text-shadow">
+//       Delete
+//     </button>
+//   );
+// };
+
+//export default DeleteBook;
+
 import React from "react";
 import api from "../../api/axiosConfig";
 import "../../index.css";
@@ -90,7 +113,7 @@ import "../../index.css";
 const DeleteBook = ({ bookID, onDeleteSuccess, staffID }) => {
   const handleDelete = async () => {
     try {
-      await api.delete(`/book/${bookID}`, { data: { staffID } }); // Include staffID in the request body
+      await api.delete(`/book/${bookID}?staffID=${staffID}`); // Include staffID as a query parameter
       onDeleteSuccess(bookID); // Notify parent about successful deletion
     } catch (error) {
       console.error("Error deleting book:", error);

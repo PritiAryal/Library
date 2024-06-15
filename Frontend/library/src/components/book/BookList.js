@@ -493,7 +493,7 @@ const BookList = ({ books, onSelect, staffID }) => {
   return (
     <div>
       {/* <h4>Books</h4> */}
-      <table className="w-full rounded-2xl shadow-lg mb-4 text-white">
+      <table className="min-w-full overflow-hidden w-full rounded-lg shadow-lg mb-4 text-white">
         <thead>
           <tr className="bg-blue-300 text-white text-shadow">
             <th className="border border-blue-100 px-4 py-2">Title</th>

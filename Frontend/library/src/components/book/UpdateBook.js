@@ -798,8 +798,12 @@ const UpdateBook = ({
       return false;
     }
 
-    if (isbn.length !== 10 || isNaN(isbn)) {
-      setError("ISBN must be 10 digit.");
+    // if (isbn.length !== 10 || isNaN(isbn)) {
+    //   setError("ISBN must be 10 digit.");
+    //   return false;
+    // }
+    if (isbn.length < 10 || isNaN(isbn)) {
+      setError("ISBN must be atleast 10 digit.");
       return false;
     }
 

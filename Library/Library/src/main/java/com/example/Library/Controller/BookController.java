@@ -154,6 +154,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -170,20 +171,32 @@ public class BookController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
+    @GetMapping("/deletedAsWell")
+    public ResponseEntity<List<Book>> getAllBooksWithSoftDelete() {
+        List<Book> books = bookService.getAllBooksWithSoftDeleted();
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
     @GetMapping("/search")
     public ResponseEntity<List<Book>> searchBooks(@RequestParam(required = false) String title,
                                                   @RequestParam(required = false) String publisher,
                                                   @RequestParam(required = false) String authorName,
                                                   @RequestParam(required = false) String categoryName,
                                                   @RequestParam(required = false) Integer yearPublished,
-                                                  @RequestParam(required = false) Long isbn) {
+                                                  @RequestParam(required = false) BigInteger isbn) {
         List<Book> books = bookService.searchBooks(title, publisher, authorName, categoryName, yearPublished, isbn);
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/deletedAsWell/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable int id) {
         Book book = bookService.getBookById(id);
+        return new ResponseEntity<>(book, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> getBookByIdWithSoftDelete(@PathVariable int id) {
+        Book book = bookService.getBookByIdWithSoftDelete(id);
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
 
@@ -206,11 +219,18 @@ public class BookController {
         return new ResponseEntity<>(updatedBook, HttpStatus.OK);
     }
 
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteBook(@PathVariable Integer id,
+//                                           @RequestParam Integer staffID) {
+//        bookService.deleteBook(id, staffID, "Delete");
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable int id,
-                                           @RequestParam Integer staffID) {
-        bookService.deleteBook(id, staffID);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> softDeleteBook(@PathVariable Integer id,
+                                               @RequestParam Integer staffID) {
+        bookService.softDeleteBook(id, staffID, "Delete");
+        return ResponseEntity.noContent().build();
     }
 }
 

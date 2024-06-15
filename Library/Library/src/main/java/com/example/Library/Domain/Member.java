@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 //import javax.persistence.*;
 import jakarta.persistence.*;
 
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class Member {
     private String address;
     private String email;
     private String password;
-    private String phone;
+    private BigInteger phone;
 
 //    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 //    private Set<Loan> loans;

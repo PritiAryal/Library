@@ -165,15 +165,24 @@ const CreateBook = ({ onCreateSuccess }) => {
       return false;
     }
 
-    if (isbn.length !== 10 || isNaN(isbn)) {
-      setError("ISBN must be 10 digit.");
+    if (isbn.length < 10 || isNaN(isbn)) {
+      setError("ISBN must be atleast 10 digit.");
       return false;
     }
+
+    // if (isbn.length !== 10 || isNaN(isbn)) {
+    //   setError("ISBN must be 10 digit.");
+    //   return false;
+    // }
 
     try {
       const response = await api.get("/book");
       const existingBooks = response.data;
-      const bookExists = existingBooks.some((book) => book.isbn === isbn);
+      console.log("Existing Books:", existingBooks);
+      //const bookExists = existingBooks.some((book) => book.ISBN === isbn);
+      const bookExists = existingBooks.some(
+        (book) => book.isbn.toString() === isbn.toString()
+      );
       if (bookExists) {
         setError("Book with the same ISBN already exists.");
         return false;

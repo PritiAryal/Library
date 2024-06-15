@@ -728,6 +728,8 @@ import LoanList from "../components/loan/LoanList";
 import CreateMember from "../components/member/CreateMember";
 import "../index.css";
 import CreateLoanModal from "../components/loan/CreateLoanModal";
+import MemberList from "../components/member/MemberList";
+import ScrollableSection from "../components/scroll/ScrollableSection";
 //import jwt from "jsonwebtoken";
 
 const StaffDashboard = () => {
@@ -795,7 +797,10 @@ const StaffDashboard = () => {
         setShowBooks(bookDetails);
       } catch (error) {
         // Handle unauthorized error
-        if (error.response && error.response.status === 401) {
+        if (
+          (error.response && error.response.status === 401) ||
+          error.response.status === 500
+        ) {
           handleLogout(); // Logout user if unauthorized
         }
         console.error("Error fetching data:", error);
@@ -870,11 +875,13 @@ const StaffDashboard = () => {
               All Books
             </h2>
             <div className="mb-4 rounded-lg">
-              <BookList
-                books={books}
-                onSelect={setSelectedBook}
-                staffID={currentStaffID}
-              />
+              <ScrollableSection>
+                <BookList
+                  books={books}
+                  onSelect={setSelectedBook}
+                  staffID={currentStaffID}
+                />
+              </ScrollableSection>
             </div>
           </div>
           <br />
@@ -882,56 +889,58 @@ const StaffDashboard = () => {
             <h2 className="text-2xl font-semibold mb-4 border-blue-100 border-b-2 text-gray-800 pb-2">
               Your Activity - Operations Log
             </h2>
-            <table className="text-shadow w-full rounded-lg shadow-lg mb-4 text-white">
-              <thead>
-                <tr className="bg-blue-300">
-                  {/* <th className="border px-4 py-2">Book ID</th> */}
-                  <th className="border border-blue-100 px-4 py-2">Title</th>
-                  <th className="border border-blue-100 px-4 py-2">
-                    Publisher
-                  </th>
-                  <th className="border border-blue-100 px-4 py-2">
-                    Year Published
-                  </th>
-                  {/* <th className="border px-4 py-2">Operation ID</th> */}
-                  <th className="border border-blue-100 px-4 py-2">
-                    Operation Type
-                  </th>
-                  <th className="border border-blue-100 px-4 py-2">
-                    Date Performed
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {showBooks.map((book, index) => (
-                  <tr key={book.bookID} className="text-center">
-                    {/* <td className="border px-4 py-2">{book.bookID}</td> */}
-                    <td className="border border-blue-100 px-4 py-2">
-                      {book.title}
-                    </td>
-                    <td className="border border-blue-100 px-4 py-2">
-                      {book.publisher}
-                    </td>
-                    <td className="border border-blue-100 px-4 py-2">
-                      {book.yearPublished}
-                    </td>
-                    {/* <td className="border px-4 py-2">
+            <ScrollableSection>
+              <table className="min-w-full overflow-hidden w-full rounded-lg shadow-lg mb-4 text-white">
+                <thead>
+                  <tr className="bg-blue-300">
+                    {/* <th className="border px-4 py-2">Book ID</th> */}
+                    <th className="border border-blue-100 px-4 py-2">Title</th>
+                    <th className="border border-blue-100 px-4 py-2">
+                      Publisher
+                    </th>
+                    <th className="border border-blue-100 px-4 py-2">
+                      Year Published
+                    </th>
+                    {/* <th className="border px-4 py-2">Operation ID</th> */}
+                    <th className="border border-blue-100 px-4 py-2">
+                      Operation Type
+                    </th>
+                    <th className="border border-blue-100 px-4 py-2">
+                      Date Performed
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {showBooks.map((book, index) => (
+                    <tr key={book.bookID} className="text-center">
+                      {/* <td className="border px-4 py-2">{book.bookID}</td> */}
+                      <td className="border border-blue-100 px-4 py-2">
+                        {book.title}
+                      </td>
+                      <td className="border border-blue-100 px-4 py-2">
+                        {book.publisher}
+                      </td>
+                      <td className="border border-blue-100 px-4 py-2">
+                        {book.yearPublished}
+                      </td>
+                      {/* <td className="border px-4 py-2">
                       {operations[index]?.operationID || "-"}
                     </td> */}
-                    <td className="border border-blue-100 px-4 py-2">
-                      {operations[index]?.operationType || "-"}
-                    </td>
-                    <td className="border border-blue-100 px-4 py-2">
-                      {operations[index]
-                        ? new Date(
-                            operations[index].performedDate
-                          ).toLocaleString()
-                        : "-"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                      <td className="border border-blue-100 px-4 py-2">
+                        {operations[index]?.operationType || "-"}
+                      </td>
+                      <td className="border border-blue-100 px-4 py-2">
+                        {operations[index]
+                          ? new Date(
+                              operations[index].performedDate
+                            ).toLocaleString()
+                          : "-"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </ScrollableSection>
           </div>
           <br />
           <div className="mb-8 p-8 rounded-lg shadow-lg font-semibold bg-opacity-5 bg-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-white border-b-2 border-blue-100 pb-2">
@@ -961,8 +970,19 @@ const StaffDashboard = () => {
                 onClose={() => setIsModalOpen(false)}
               />
             </h2>
-
-            <LoanList />
+            <ScrollableSection>
+              <LoanList />
+            </ScrollableSection>
+          </div>
+          <div className="mb-10 p-8 rounded-lg shadow-lg font-semibold bg-opacity-5 bg-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-white border-b-2 border-blue-100 pb-2">
+            <h2 className="text-2xl font-semibold mb-4 border-blue-100 border-b-2 text-gray-800 pb-2">
+              All Members
+            </h2>
+            <div className="mb-4 rounded-lg">
+              <ScrollableSection>
+                <MemberList />
+              </ScrollableSection>
+            </div>
           </div>
         </div>
         <div className="w-1/4 p-8">

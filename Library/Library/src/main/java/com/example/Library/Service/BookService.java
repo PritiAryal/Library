@@ -404,6 +404,7 @@ import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -417,15 +418,22 @@ public class BookService {
     private final CategoryRepository categoryRepository;
     private final OperationRepository operationRepository;
     private final StaffRepository staffRepository;
+    private final BookHistoryRepository bookHistoryRepository;
 
     @Transactional
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooksWithSoftDeleted() {
         return bookRepository.findAll();
     }
 
+    @Transactional
+    public List<Book> getAllBooks() {
+        return bookRepository.findByDeletedFalse();
+    }
+
+
 
     @Transactional
-    public List<Book> searchBooks(String title, String publisher, String authorName, String categoryName, Integer yearPublished, Long isbn) {
+    public List<Book> searchBooks(String title, String publisher, String authorName, String categoryName, Integer yearPublished, BigInteger isbn) {
         if (title != null) {
             return bookRepository.findByTitleContaining(title);
         } else if (publisher != null) {
@@ -452,9 +460,14 @@ public class BookService {
     }
 
     @Transactional
-    public Book getBookById(int id) {
+    public Book getBookByIdWithSoftDelete(int id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found with ID " + id));
+    }
+
+    public Book getBookById(int id) {
+        return bookRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new IllegalArgumentException("Book with ID " + id + " not found"));
     }
 
     @Transactional
@@ -515,15 +528,56 @@ public class BookService {
         }
     }
 
+//    @Transactional
+//    public void deleteBook(Integer id, Integer staffID, String operationType) {
+//        Book book = bookRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Book with ID " + id +" not found"));
+//
+//        createBookHistory(book);
+//
+//        createOperation(book, staffID, operationType);
+//
+//        bookRepository.deleteById(id);
+//    }
+
+
+
+
     @Transactional
-    public void deleteBook(int id, Integer staffID) {
+    public void deleteBook(Integer id, Integer staffID, String operationType) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Book with ID " + id +" not found"));
 
-        bookRepository.deleteById(id);
+        //createBookHistory(book);
 
-        createOperation(book, staffID, "Delete");
+        createOperation(book, staffID, operationType);
+        bookRepository.deleteById(id);
     }
+
+
+
+    @Transactional
+    public void softDeleteBook(Integer id, Integer staffID, String operationType) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Book with ID " + id +" not found"));
+
+        // Create operation history
+        createOperation(book, staffID, operationType);
+
+        // Soft delete the book
+        bookRepository.softDeleteById(id);
+    }
+
+//    private void createBookHistory(Book book) {
+//        BookHistory bookHistory = new BookHistory();
+//        bookHistory.setTitle(book.getTitle());
+//        bookHistory.setPublisher(book.getPublisher());
+//        bookHistory.setYearPublished(book.getYearPublished());
+//        bookHistory.setDeletedDate(new Date());
+//        bookHistory.setOriginalBook(book);
+//        bookHistoryRepository.save(bookHistory);
+//    }
+
 
 
 

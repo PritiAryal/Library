@@ -24,7 +24,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookID;
     private String title;
-    private Long ISBN;
+    private BigInteger ISBN;
     private String publisher;
     private Integer yearPublished;
 
@@ -46,6 +46,9 @@ public class Book {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Operation> operations = new HashSet<>();
+
+    @Column(name = "deleted")
+    private Boolean deleted=false;
 
 //    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
 //    private Set<Loan> loans;

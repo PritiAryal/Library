@@ -245,15 +245,16 @@ const LoanList = () => {
   return (
     <div className="container mx-auto">
       {/* <h2 className="text-2xl font-bold mb-4">Loan List</h2> */}
-      <table className="table-auto w-full shadow-lg rounded-lg mb-4 text-shadow">
+      <table className="min-w-full overflow-hidden w-full rounded-lg shadow-lg mb-4 text-white">
         <thead>
           <tr className="bg-blue-300">
-            <th className="border border-blue-100 px-4 py-2">Loan ID</th>
+            {/* <th className="border border-blue-100 px-4 py-2">Loan ID</th> */}
             <th className="border border-blue-100 px-4 py-2">Book Title</th>
             <th className="border border-blue-100 px-4 py-2">Member Name</th>
             <th className="border bordeblue-100 px-4 py-2">Loan Date</th>
+            <th className="border bordeblue-100 px-4 py-2">Due Date</th>
             <th className="border border-blue-100 px-4 py-2">Return Date</th>
-            <th className="border border-blue-100 px-4 py-2">Status</th>
+            <th className="border border-blue-100">Status</th>
           </tr>
         </thead>
         {/* <tbody>
@@ -302,9 +303,9 @@ const LoanList = () => {
                 onClick={() => handleRowClick(loanData.loan)}
                 className="cursor-pointer transition-colors hover:bg-blue-400 hover:bg-opacity-35 hover:shadow-md"
               >
-                <td className="border border-blue-100 px-4 py-2">
+                {/* <td className="border border-blue-100 px-4 py-2">
                   {loanData.loan.loanID}
-                </td>
+                </td> */}
                 <td className="border border-blue-100 px-4 py-2">
                   {loanData.bookTitle}
                 </td>
@@ -315,9 +316,12 @@ const LoanList = () => {
                   {loanData.loan.loanDate}
                 </td>
                 <td className="border border-blue-100 px-4 py-2">
-                  {loanData.loan.returnDate}
+                  {loanData.loan.dueDate}
                 </td>
                 <td className="border border-blue-100 px-4 py-2">
+                  {loanData.loan.returnDate}
+                </td>
+                <td className="border border-blue-100">
                   {loanData.loan.status}
                 </td>
               </tr>

@@ -351,8 +351,8 @@ const CreateMember = () => {
       return;
     }
 
-    if (userName.length < 10) {
-      setError("Username must be atleast 10 characters long.");
+    if (userName.length < 4) {
+      setError("Username must be atleast 4 characters long.");
       return;
     }
     if (password.length < 10) {
