@@ -127,6 +127,7 @@
 // export default SearchForm;
 import React, { useState, useEffect } from "react";
 import api from "../../api/axiosConfig";
+import "../../index.css";
 
 const SearchForm = ({ setBooks }) => {
   const [authors, setAuthors] = useState([]);
@@ -212,7 +213,7 @@ const SearchForm = ({ setBooks }) => {
   };
 
   return (
-    <div className="mb-10 p-8 rounded-lg shadow-lg font-semibold bg-opacity-10 bg-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-white border-b-2 border-blue-100 pb-2">
+    <div className="mb-10 p-8 rounded-lg shadow-lg font-semibold bg-opacity-10 bg-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-shadow text-white border-b-2 border-blue-100 pb-2">
       <h2 className="text-2xl font-semibold mb-4 border-blue-100 border-b-2 text-white text-shadow pb-2">
         Search Books
       </h2>
@@ -246,22 +247,22 @@ const SearchForm = ({ setBooks }) => {
           name="title"
           placeholder="Title"
           onChange={handleInputChange}
-          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-shadow text-white font-bold py-2 px-4 rounded"
         />
         <input
           name="publisher"
           placeholder="Publisher"
           onChange={handleInputChange}
-          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-shadow text-white font-bold py-2 px-4 rounded"
         />
         <select
           name="name"
           onChange={handleInputChange}
-          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-shadow text-white font-bold py-2 px-4 rounded"
         >
           <option value="">Select Author</option>
           {authors.map((author, index) => (
-            <option key={index} value={author.name}>
+            <option key={index} value={author.name} className="text-gray-800">
               {author.name}
             </option>
           ))}
@@ -269,11 +270,15 @@ const SearchForm = ({ setBooks }) => {
         <select
           name="categoryName"
           onChange={handleInputChange}
-          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-shadow text-white font-bold py-2 px-4 rounded"
         >
           <option value="">Select Category</option>
           {categories.map((category, index) => (
-            <option key={index} value={category.categoryName}>
+            <option
+              key={index}
+              value={category.categoryName}
+              className="text-gray-800"
+            >
               {category.categoryName}
             </option>
           ))}
@@ -282,13 +287,13 @@ const SearchForm = ({ setBooks }) => {
           name="yearPublished"
           placeholder="Year Published"
           onChange={handleInputChange}
-          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-shadow text-white font-bold py-2 px-4 rounded"
         />
         <input
           name="ISBN"
           placeholder="ISBN"
           onChange={handleInputChange}
-          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-300 bg-opacity-10 backdrop-blur-md border border-white border-opacity-30 hover:bg-opacity-20 text-shadow text-white font-bold py-2 px-4 rounded"
         />
       </div>
       <button

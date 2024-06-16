@@ -408,6 +408,7 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -434,20 +435,50 @@ public class BookService {
 
     @Transactional
     public List<Book> searchBooks(String title, String publisher, String authorName, String categoryName, Integer yearPublished, BigInteger isbn) {
+//        if (title != null) {
+//            return bookRepository.findByTitleContaining(title);
+//        } else if (publisher != null) {
+//            return bookRepository.findByPublisherContaining(publisher);
+//        } else if (authorName != null) {
+//            return bookRepository.findByAuthorName(authorName);
+//        } else if (categoryName != null) {
+//            return bookRepository.findByCategoryName(categoryName);
+//        } else if (yearPublished != null) {
+//            return bookRepository.findByYearPublished(yearPublished);
+//        } else if (isbn != null) {
+//            return bookRepository.findByISBN(isbn);
+//        } else {
+//            return bookRepository.findAll();
+//        }
+//    }
         if (title != null) {
-            return bookRepository.findByTitleContaining(title);
+            return bookRepository.findByTitleContaining(title).stream()
+                    .filter(book -> book.getDeleted() == null || !book.getDeleted())
+                    .collect(Collectors.toList());
         } else if (publisher != null) {
-            return bookRepository.findByPublisherContaining(publisher);
+            return bookRepository.findByPublisherContaining(publisher).stream()
+                    .filter(book -> book.getDeleted() == null || !book.getDeleted())
+                    .collect(Collectors.toList());
         } else if (authorName != null) {
-            return bookRepository.findByAuthorName(authorName);
+            return bookRepository.findByAuthorName(authorName).stream()
+                    .filter(book -> book.getDeleted() == null || !book.getDeleted())
+                    .collect(Collectors.toList());
         } else if (categoryName != null) {
-            return bookRepository.findByCategoryName(categoryName);
+            return bookRepository.findByCategoryName(categoryName).stream()
+                    .filter(book -> book.getDeleted() == null || !book.getDeleted())
+                    .collect(Collectors.toList());
         } else if (yearPublished != null) {
-            return bookRepository.findByYearPublished(yearPublished);
+            return bookRepository.findByYearPublished(yearPublished).stream()
+                    .filter(book -> book.getDeleted() == null || !book.getDeleted())
+                    .collect(Collectors.toList());
         } else if (isbn != null) {
-            return bookRepository.findByISBN(isbn);
+            return bookRepository.findByISBN(isbn).stream()
+                    .filter(book -> book.getDeleted() == null || !book.getDeleted())
+                    .collect(Collectors.toList());
         } else {
-            return bookRepository.findAll();
+            return bookRepository.findAll().stream()
+                    .filter(book -> book.getDeleted() == null || !book.getDeleted())
+                    .collect(Collectors.toList());
         }
     }
 

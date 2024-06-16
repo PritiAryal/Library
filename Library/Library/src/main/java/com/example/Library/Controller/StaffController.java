@@ -76,7 +76,7 @@ public class StaffController {
         System.out.println(login.getPassword());
 
 
-        String token = securityService.createToken(login.getName(), (1 * 10000 * 10));
+        String token = securityService.createToken(login.getName(), (15 * 60 * 1000));//(1 * 10000 * 10));
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("token", token);
 

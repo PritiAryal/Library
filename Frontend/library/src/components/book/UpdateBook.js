@@ -810,7 +810,10 @@ const UpdateBook = ({
     try {
       const response = await api.get("/book");
       const existingBooks = response.data;
-      const bookExists = existingBooks.some((book) => book.isbn === isbn);
+      //const bookExists = existingBooks.some((book) => book.isbn === isbn);
+      const bookExists = existingBooks.some(
+        (book) => book.isbn.toString() === isbn.toString()
+      );
       if (bookExists) {
         setError("Book with the same ISBN already exists.");
         return false;
