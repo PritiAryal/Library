@@ -69,6 +69,7 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import api from "../api/axiosConfig";
 import SearchForm from "../components/book/SearchForm";
+import MemberLoanList from "../components/loan/MemberLoanList";
 
 const MemberDashboard = () => {
   const navigate = useNavigate();
@@ -292,6 +293,14 @@ const MemberDashboard = () => {
         <button onClick={handleLogout}>Logout</button>
         {/* Add other member dashboard content here */}
           {/* </div>  */}
+        </div>
+        <div className="container mx-auto justify-between items-center px-4">
+          <div className="mb-10 p-8 rounded-lg shadow-lg font-semibold bg-opacity-10 bg-white bg-blur-lg bg-clip-padding backdrop-filter backdrop-blur-md text-white border-b-2 border-blue-100 pb-2">
+            <h2 className="text-2xl font-semibold mb-4 border-blue-100 border-b-2 text-white text-shadow pb-2">
+              Your Loans
+            </h2>
+            <MemberLoanList currentMemberID={currentMemberID} />
+          </div>
         </div>
       </div>
     </div>
